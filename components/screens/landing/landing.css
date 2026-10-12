@@ -1,0 +1,90 @@
+/* Motion of the public pages (landing, auth): docs/12-motion.md « Landing ».
+   Only opacity and transform move. --i is an element's place in its
+   sequence, --at the moment a demo layer appears. */
+
+:root {
+  /* Landing pace: tune it here. */
+  --landing-entree: 700ms; /* one element rising in */
+  --landing-pas: 120ms; /* gap between two elements of a sequence */
+  --landing-montee: 24px; /* how far an element rises */
+}
+
+@keyframes landing-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--landing-montee));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hero: lines rise in on load, one after another. */
+.landing-in {
+  animation: landing-rise var(--landing-entree) var(--ease-sortie) both;
+  animation-delay: calc(var(--i, 0) * var(--landing-pas));
+}
+
+/* A <Mosaic stagger> already on screen fills tile by tile on load, at this pace. */
+.mosaic-fill .q-stagger > * {
+  animation: q-fade 400ms ease both;
+  animation-delay: calc(min(var(--i, 0) * 40ms, 1000ms) + 400ms);
+}
+
+/* Hero demo: answer states stacked; each layer fades in at its moment. */
+.demo-step {
+  animation: q-fade 400ms ease both;
+  animation-delay: var(--at);
+}
+.demo-pop {
+  display: inline-flex;
+  animation: q-pop 500ms var(--ease-sortie) both;
+  animation-delay: var(--at);
+}
+.hero-demo .q-tile--drop {
+  animation-delay: var(--at);
+}
+
+/* Scroll reveal: <Reveal> sets data-reveal="hidden" on blocks below the
+   screen, then "shown" once they scroll into view. */
+[data-reveal="hidden"] :is(.reveal-item, .reveal-pop, .q-stagger > *, .q-tile--drop, [data-rank-change]) {
+  opacity: 0;
+}
+[data-reveal] :is(.q-stagger > *, .q-tile--drop) {
+  animation: none;
+}
+[data-reveal="shown"] .reveal-item {
+  animation: landing-rise var(--landing-entree) var(--ease-sortie) both;
+  animation-delay: calc(var(--i, 0) * var(--landing-pas));
+}
+[data-reveal="shown"] .reveal-pop {
+  animation: q-pop 500ms var(--ease-sortie) both;
+  animation-delay: calc(var(--i, 0) * var(--landing-pas) + 250ms);
+}
+/* The mosaic fills tile by tile (40 ms each, capped at 1 s)… */
+[data-reveal="shown"] .q-stagger > * {
+  animation: q-fade 400ms ease both;
+  animation-delay: calc(min(var(--i, 0) * 40ms, 1000ms) + 400ms);
+}
+/* …then its featured tile drops in with the yellow ring. */
+[data-reveal="shown"] .q-tile--drop {
+  animation: q-drop var(--duree-lente) var(--ease-rebond) both;
+  animation-delay: 1600ms;
+}
+/* The « ▲ 3 » badge fades in after the leaderboard rows. */
+[data-reveal="shown"] [data-rank-change] {
+  animation: q-fade 400ms ease both;
+  animation-delay: 1300ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-in {
+    animation: q-fade 150ms ease both;
+    animation-delay: 0ms;
+  }
+  .demo-step,
+  .demo-pop {
+    animation: none;
+  }
+}

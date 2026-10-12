@@ -1,0 +1,85 @@
+@import "tailwindcss";
+/* Design tokens and motion, kept identical to design/design-system/.
+   Layered so Tailwind utilities can override the type classes (.title, .body…). */
+@import "../styles/tokens.css" layer(base);
+@import "../styles/motion.css" layer(components);
+
+/* Fonts come from next/font (see app/layout.tsx). Unlayered so it wins over
+   the plain family names in tokens.css. */
+:root {
+  --font-display: var(--font-bricolage), "Segoe UI", system-ui, sans-serif;
+  --font-text: var(--font-atkinson), "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* `dark:` follows our data-theme (including nested panels), not the device. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Tokens only: Tailwind's default palette is removed, so every color class
+   (bg-surface, text-encre-douce…) points at a design token. */
+@theme inline {
+  --color-*: initial;
+  --color-fond: var(--fond);
+  --color-surface: var(--surface);
+  --color-nuit: var(--nuit);
+  --color-sur-nuit: var(--sur-nuit);
+  --color-sur-nuit-douce: var(--sur-nuit-douce);
+  --color-ligne: var(--ligne);
+  --color-trait: var(--trait);
+  --color-encre: var(--encre);
+  --color-encre-douce: var(--encre-douce);
+  --color-magenta: var(--magenta);
+  --color-magenta-texte: var(--magenta-texte);
+  --color-magenta-clair: var(--magenta-clair);
+  --color-jaune: var(--jaune);
+  --color-sur-jaune: var(--sur-jaune);
+  --color-action: var(--action);
+  --color-sur-action: var(--sur-action);
+  --color-focus: var(--focus);
+  --color-tuile-vide: var(--tuile-vide);
+  --color-tuile-commence: var(--tuile-commence);
+  --color-tuile-solide: var(--tuile-solide);
+  --color-tuile-maitrise: var(--tuile-maitrise);
+  --color-tuile-maitrise-point: var(--tuile-maitrise-point);
+  --color-juste: var(--juste);
+  --color-juste-clair: var(--juste-clair);
+  --color-faux: var(--faux);
+  --color-faux-clair: var(--faux-clair);
+
+  --font-display: var(--font-display);
+  --font-text: var(--font-text);
+
+  --radius-tuile: var(--radius-tuile);
+  --radius-m: var(--radius-m);
+  --radius-l: var(--radius-l);
+  --radius-pill: var(--radius-pill);
+
+  --shadow-carte: var(--shadow-carte);
+  --shadow-levee: var(--shadow-levee);
+
+  --container-page: var(--page-max);
+  --container-lecture: var(--lecture-max);
+}
+
+@layer base {
+  body {
+    background-color: var(--fond);
+    color: var(--encre);
+    font-family: var(--font-text);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* Tailwind v4 resets buttons to the default arrow; every clickable gets the hand. */
+  button:not(:disabled):not([aria-disabled="true"]),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}

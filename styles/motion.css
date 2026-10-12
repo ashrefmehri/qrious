@@ -1,0 +1,64 @@
+/* Qrious — motion. Import after tokens.css. Spec: docs/12-motion.md */
+:root {
+  --duree-rapide: 150ms;
+  --duree-base: 250ms;
+  --duree-lente: 600ms;
+  --ease-sortie: cubic-bezier(.2, .8, .2, 1);
+  --ease-entree: cubic-bezier(.4, 0, 1, 1);
+  --ease-rebond: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* Page content entering */
+@keyframes q-page-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.q-page-in { animation: q-page-in 200ms var(--ease-sortie) both; }
+
+/* Feedback panel appearing under the answers */
+@keyframes q-rise-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.q-rise-in { animation: q-rise-in var(--duree-base) var(--ease-sortie) both; }
+
+/* Next question entering / current leaving */
+@keyframes q-question-in { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+@keyframes q-question-out { to { opacity: 0; } }
+.q-question-in { animation: q-question-in var(--duree-base) var(--ease-sortie) both; }
+.q-question-out { animation: q-question-out 120ms var(--ease-entree) both; }
+
+/* XP chip, level badge */
+@keyframes q-pop { 0% { opacity: 0; transform: scale(.9); } 70% { opacity: 1; transform: scale(1.05); } 100% { transform: scale(1); } }
+.q-pop { animation: q-pop var(--duree-base) var(--ease-sortie) both; }
+
+/* Tile drop (same as the component bundle) */
+@keyframes q-drop { from { opacity: 0; transform: translateY(-28px) scale(.8); } to { opacity: 1; transform: none; } }
+.q-tile--drop { animation: q-drop var(--duree-lente) var(--ease-rebond) both; }
+
+/* Progress and XP bars: animate scaleX on an inner element, transform-origin left */
+.q-bar-fill { transform-origin: left center; transition: transform var(--duree-base) var(--ease-sortie); }
+.q-bar-fill--slow { transition-duration: var(--duree-lente); }
+
+/* Sheets */
+@keyframes q-sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes q-dialog-in { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes q-fade { from { opacity: 0; } to { opacity: 1; } }
+.q-sheet { animation: q-sheet-up var(--duree-base) var(--ease-sortie) both; }
+@media (min-width: 640px) { .q-sheet { animation-name: q-dialog-in; } }
+.q-backdrop { animation: q-fade var(--duree-base) ease both; }
+
+/* Press feedback */
+.q-pressable { transition: transform var(--duree-rapide) ease, background-color var(--duree-rapide) ease, border-color var(--duree-rapide) ease; }
+.q-pressable:active { transform: scale(.98); }
+
+/* Skeleton */
+@keyframes q-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .6; } }
+.q-skeleton { background: var(--ligne); border-radius: var(--radius-m); animation: q-pulse 1.2s ease-in-out infinite; }
+
+/* Mosaic first-visit stagger: set style="--i: <tile index>" on each tile */
+.q-stagger > * { animation: q-fade var(--duree-base) ease both; animation-delay: min(calc(var(--i, 0) * 20ms), 400ms); }
+
+@media (prefers-reduced-motion: reduce) {
+  .q-page-in, .q-rise-in, .q-question-in, .q-pop, .q-tile--drop, .q-sheet, .q-stagger > * {
+    animation: q-fade 150ms ease both !important; animation-delay: 0ms !important;
+  }
+  .q-question-out { animation: none !important; }
+  .q-skeleton { animation: none; }
+  .q-bar-fill, .q-pressable { transition-duration: 0ms; }
+  .q-pressable:active { transform: none; }
+}

@@ -1,0 +1,83 @@
+/* Qrious — generated from tokens.json */
+:root, [data-theme="light"] {
+  --fond: #F7F6FA;
+  --surface: #FFFFFF;
+  --nuit: #13183D;
+  --sur-nuit: #FFFFFF;
+  --sur-nuit-douce: #C9CBE0;
+  --ligne: #ECEBF2;
+  --trait: #8E8BA3;
+  --encre: #13183D;
+  --encre-douce: #5B5F7A;
+  --magenta: #FF2D87;
+  --magenta-texte: #D6176E;
+  --magenta-clair: #FFF0F6;
+  --jaune: #FFE14D;
+  --sur-jaune: #13183D;
+  --action: #13183D;
+  --sur-action: #FFFFFF;
+  --focus: #D6176E;
+  --tuile-vide: #8E8BA3;
+  --tuile-commence: #FFC2DC;
+  --tuile-solide: #FF2D87;
+  --tuile-maitrise: #13183D;
+  --tuile-maitrise-point: #FFE14D;
+  --juste: #0F7A4A;
+  --juste-clair: #DDF4E8;
+  --faux: #D02B3A;
+  --faux-clair: #FBE0E2;
+  --shadow-carte: 0 1px 2px rgba(19,24,61,0.06), 0 4px 16px rgba(19,24,61,0.06);
+  --shadow-levee: 0 2px 4px rgba(19,24,61,0.08), 0 12px 32px rgba(19,24,61,0.10);
+}
+[data-theme="dark"] {
+  --fond: #0D1030;
+  --surface: #191E48;
+  --nuit: #232966;
+  --ligne: #2A3060;
+  --trait: #6A6F9E;
+  --encre: #F3F2FA;
+  --encre-douce: #B3B6D6;
+  --magenta: #FF4D9A;
+  --magenta-texte: #FF7AB4;
+  --magenta-clair: #3A1A33;
+  --action: #FFE14D;
+  --sur-action: #13183D;
+  --focus: #FF7AB4;
+  --tuile-vide: #6A6F9E;
+  --tuile-commence: #8A3360;
+  --tuile-solide: #FF4D9A;
+  --tuile-maitrise: #FFE14D;
+  --tuile-maitrise-point: #13183D;
+  --juste: #4ADE9B;
+  --juste-clair: #133826;
+  --faux: #FF7A85;
+  --faux-clair: #3D1A22;
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+  --page-max: 1200px;
+  --lecture-max: 720px;
+  --sidebar: 240px;
+  --radius-tuile: 6px;
+  --radius-m: 14px;
+  --radius-l: 20px;
+  --radius-pill: 999px;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-text: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+}
+.score { font-family: var(--font-display); font-size: 88px; line-height: 88px; font-weight: 600; }
+.display-xl { font-family: var(--font-display); font-size: 44px; line-height: 48px; font-weight: 600; }
+.display-l { font-family: var(--font-display); font-size: 32px; line-height: 38px; font-weight: 600; }
+.title { font-family: var(--font-display); font-size: 22px; line-height: 28px; font-weight: 600; }
+.stat { font-family: var(--font-display); font-size: 20px; line-height: 24px; font-weight: 600; }
+.question { font-family: var(--font-text); font-size: 20px; line-height: 30px; font-weight: 400; }
+.body { font-family: var(--font-text); font-size: 16px; line-height: 24px; font-weight: 400; }
+.body-strong { font-family: var(--font-text); font-size: 16px; line-height: 24px; font-weight: 700; }
+.label { font-family: var(--font-text); font-size: 14px; line-height: 20px; font-weight: 700; }
+.caption { font-family: var(--font-text); font-size: 13px; line-height: 18px; font-weight: 400; }
+.micro { font-family: var(--font-text); font-size: 11px; line-height: 14px; font-weight: 400; }
