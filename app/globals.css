@@ -77,6 +77,11 @@
     outline-offset: 2px;
   }
 
+  /* Edge adds its own eye to password fields; TextField has ours. */
+  input::-ms-reveal {
+    display: none;
+  }
+
   /* Tailwind v4 resets buttons to the default arrow; every clickable gets the hand. */
   button:not(:disabled):not([aria-disabled="true"]),
   [role="button"]:not([aria-disabled="true"]) {

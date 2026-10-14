@@ -38,7 +38,7 @@ export default function PublicLayout({ children }: LayoutProps<"/">) {
           </Link>
           {/* Hidden on phone: the hero has the same button right below. */}
           <div className="hidden sm:block">
-            <Button href="/essai">Essayer gratuitement</Button>
+            <Button href="/inscription">Essayer gratuitement</Button>
           </div>
         </div>
       </header>

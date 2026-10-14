@@ -31,6 +31,10 @@
   animation: q-fade 400ms ease both;
   animation-delay: calc(min(var(--i, 0) * 40ms, 1000ms) + 400ms);
 }
+/* …and its ringed tile drops in once the others are there. */
+.mosaic-fill .q-tile--drop {
+  animation-delay: 1700ms;
+}
 
 /* Hero demo: answer states stacked; each layer fades in at its moment. */
 .demo-step {

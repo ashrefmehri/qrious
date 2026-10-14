@@ -71,7 +71,7 @@ export default function LandingPage() {
               chapitre par chapitre.
             </p>
             <div className="landing-in flex flex-col gap-2.5 [--i:3] sm:flex-row sm:flex-wrap sm:gap-3">
-              <Button href="/essai" size="lg" icon="arrowRight" className="w-full sm:w-auto">
+              <Button href="/inscription" size="lg" icon="arrowRight" className="w-full sm:w-auto">
                 Essayer gratuitement
               </Button>
               <Button href="/connexion" variant="secondary" size="lg" className="w-full sm:w-auto">
@@ -79,8 +79,7 @@ export default function LandingPage() {
               </Button>
             </div>
             <span className="landing-in text-center text-[13px] text-encre-douce [--i:4] sm:text-left lg:text-sm">
-              <span className="lg:hidden">Gratuit · sans compte pour essayer</span>
-              <span className="hidden lg:inline">Gratuit · en français · sur téléphone et ordinateur</span>
+              Gratuit · en français · sur téléphone et ordinateur
             </span>
           </div>
 
@@ -192,9 +191,9 @@ export default function LandingPage() {
               <h2 className="font-display text-[28px] leading-8.5 font-semibold lg:text-[40px] lg:leading-11.5 lg:tracking-[-0.02em]">
                 Ta première tuile t&apos;attend.
               </h2>
-              <span className="text-[15px] text-sur-nuit-douce lg:text-[17px]">3 questions, sans compte, en 1 minute.</span>
+              <span className="text-[15px] text-sur-nuit-douce lg:text-[17px]">Ton compte est gratuit et prêt en 1 minute.</span>
             </div>
-            <Button href="/essai" variant="reward" size="lg" icon="arrowRight" className="w-full sm:w-auto">
+            <Button href="/inscription" variant="reward" size="lg" icon="arrowRight" className="w-full sm:w-auto">
               Essayer gratuitement
             </Button>
           </div>
