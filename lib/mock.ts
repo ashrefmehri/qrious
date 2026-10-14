@@ -28,3 +28,19 @@ export const EXAMPLE_ROWS = {
 
 /** The Maths row of the landing demos: « Fonction logarithme » (tile 7) just became solide and drops in. */
 export const EXAMPLE_MATHS_DROP = withDrop(EXAMPLE_ROWS.maths, 6);
+
+/** An empty Bac mosaic (Bienvenue panel), as in the BienvenueDesktop mockup. */
+export const EXAMPLE_BAC_EMPTY_ROWS = [
+  row("Mathématiques", Array<TileState>(12).fill("vide")),
+  row("Physique-Chimie", Array<TileState>(10).fill("vide")),
+  row("Sciences naturelles", Array<TileState>(8).fill("vide")),
+  row("Informatique", Array<TileState>(6).fill("vide")),
+  row("Philosophie", Array<TileState>(6).fill("vide")),
+];
+
+/** A new student's mosaic (Inscription panel): every tile still « À découvrir », the first one ringed. */
+export const EXAMPLE_EMPTY_ROWS = [
+  withDrop(row("Mathématiques", Array<TileState>(12).fill("vide")), 0),
+  row("Physique-Chimie", Array<TileState>(10).fill("vide")),
+  row("Informatique", Array<TileState>(6).fill("vide")),
+];

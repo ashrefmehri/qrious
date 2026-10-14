@@ -30,11 +30,16 @@ export function getThemePreference(): ThemePreference {
   return (match?.[1] as ThemePreference | undefined) ?? "system";
 }
 
-export function setThemePreference(preference: ThemePreference): void {
-  document.cookie = `${THEME_COOKIE}=${preference}; path=/; max-age=${THEME_COOKIE_MAX_AGE}; samesite=lax`;
+/** Sets data-theme on <html> from a preference ("system" follows the device). */
+export function applyThemePreference(preference: ThemePreference = getThemePreference()): void {
   const prefersDark = window.matchMedia(DARK_QUERY).matches;
   document.documentElement.dataset.theme =
     preference === "system" ? (prefersDark ? "dark" : "light") : preference;
+}
+
+export function setThemePreference(preference: ThemePreference): void {
+  document.cookie = `${THEME_COOKIE}=${preference}; path=/; max-age=${THEME_COOKIE_MAX_AGE}; samesite=lax`;
+  applyThemePreference(preference);
   window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
 }
 

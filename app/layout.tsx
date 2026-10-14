@@ -1,19 +1,7 @@
 import type { Metadata } from "next";
-import { Atkinson_Hyperlegible, Bricolage_Grotesque } from "next/font/google";
 import { themeScript } from "@/lib/theme";
+import { fontVariables } from "./fonts";
 import "./globals.css";
-
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  weight: "600",
-  subsets: ["latin"],
-});
-
-const atkinson = Atkinson_Hyperlegible({
-  variable: "--font-atkinson",
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Qrious",
@@ -22,11 +10,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="fr"
-      className={`${bricolage.variable} ${atkinson.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
+    <html lang="fr" className={`${fontVariables} h-full antialiased`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

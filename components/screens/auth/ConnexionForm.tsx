@@ -1,45 +1,68 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
+import { useState, useTransition, type SubmitEvent } from "react";
 import { Button } from "@/components/ui/Button";
 import { TextField } from "@/components/ui/TextField";
+import { fieldErrors, SIGN_IN_FIELDS, signInSchema, type FieldErrors, type SignInField } from "@/lib/validation/auth";
+import { isNetworkError, OFFLINE_MESSAGE } from "@/lib/network";
+import { signIn } from "@/server/actions/auth";
 
-type Field = "email" | "password";
-type Errors = Partial<Record<Field, string>>;
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function validate(email: string, password: string): Errors {
-  const errors: Errors = {};
-  if (!email) errors.email = "Entre ton e-mail.";
-  else if (!EMAIL_PATTERN.test(email)) errors.email = "Cet e-mail n'a pas l'air valide.";
-  if (!password) errors.password = "Entre ton mot de passe.";
-  return errors;
+function focusFirstInvalid(form: HTMLFormElement, errors: FieldErrors<SignInField>) {
+  const field = SIGN_IN_FIELDS.find((name) => errors[name]);
+  if (field) (form.elements.namedItem(field) as HTMLInputElement | null)?.focus();
 }
 
-/** E-mail + password sign-in. Checks the fields in the browser; the real sign-in (Better Auth) comes in M3. */
+/**
+ * E-mail + password sign-in. Checked in the browser first (same Zod rules as
+ * the server), then the server action signs in, or sends an unverified
+ * student to /verification with a new code.
+ */
 export function ConnexionForm() {
-  const [errors, setErrors] = useState<Errors>({});
+  const [errors, setErrors] = useState<FieldErrors<SignInField>>({});
+  const [formError, setFormError] = useState<string>();
+  const [pending, startTransition] = useTransition();
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (pending) return;
     const form = event.currentTarget;
-    const data = new FormData(form);
-    const found = validate(String(data.get("email") ?? "").trim(), String(data.get("password") ?? ""));
-    setErrors(found);
+    const formData = new FormData(form);
 
-    const firstInvalid = (["email", "password"] as const).find((field) => found[field]);
-    if (firstInvalid) {
-      (form.elements.namedItem(firstInvalid) as HTMLInputElement).focus();
+    const parsed = signInSchema.safeParse(Object.fromEntries(formData));
+    if (!parsed.success) {
+      const found = fieldErrors<SignInField>(parsed.error);
+      setErrors(found);
+      focusFirstInvalid(form, found);
       return;
     }
-    // M3: sign in with Better Auth, then go to ?next= or /app.
+
+    // Back to the page the student wanted (?next=), checked again on the server.
+    const next = new URLSearchParams(window.location.search).get("next");
+    if (next) formData.set("next", next);
+
+    setFormError(undefined);
+    startTransition(async () => {
+      try {
+        // On success the action redirects, so a result only comes back on failure.
+        const result = await signIn(formData);
+        if (result.errors) {
+          setErrors(result.errors);
+          focusFirstInvalid(form, result.errors);
+        }
+        setFormError(result.formError);
+      } catch (error) {
+        // No internet: keep what was typed and say so. Anything else (redirects included) goes on.
+        if (!isNetworkError(error)) throw error;
+        setFormError(OFFLINE_MESSAGE);
+      }
+    });
   }
 
   // An error disappears as soon as the student edits that field.
-  const clear = (field: Field) => () => {
+  const clear = (field: SignInField) => () => {
     if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }));
+    if (formError) setFormError(undefined);
   };
 
   return (
@@ -66,8 +89,13 @@ export function ConnexionForm() {
       >
         Mot de passe oublié ?
       </Link>
+      {formError && (
+        <p role="alert" className="text-sm font-bold text-faux">
+          {formError}
+        </p>
+      )}
       <Button type="submit" size="lg" fullWidth>
-        Se connecter
+        {pending ? "Connexion…" : "Se connecter"}
       </Button>
     </form>
   );

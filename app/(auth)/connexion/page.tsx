@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AuthSplit } from "@/components/screens/auth/AuthSplit";
 import { ConnexionForm } from "@/components/screens/auth/ConnexionForm";
-import { GoogleLogo } from "@/components/screens/auth/GoogleLogo";
-import { Button } from "@/components/ui/Button";
+import { GoogleSignIn } from "@/components/screens/auth/GoogleSignIn";
 import { Card } from "@/components/ui/Card";
 import { Mosaic } from "@/components/ui/Mosaic";
 import { EXAMPLE_ROWS } from "@/lib/mock";
@@ -33,8 +32,8 @@ export default function ConnexionPage() {
       footer={
         <>
           Pas encore de compte ?{" "}
-          <Link href="/essai" className="py-3 font-bold text-magenta-texte underline hover:text-encre">
-            Essayer gratuitement
+          <Link href="/inscription" className="py-3 font-bold text-magenta-texte underline hover:text-encre">
+            Créer mon compte
           </Link>
         </>
       }
@@ -46,18 +45,7 @@ export default function ConnexionPage() {
         <p className="text-[15px] text-encre-douce lg:text-base">Ta mosaïque t&apos;attend là où tu l&apos;as laissée.</p>
       </div>
 
-      {/* M3: sign in with Google through Better Auth. */}
-      <Button variant="secondary" size="lg" fullWidth>
-        <GoogleLogo />
-        Continuer avec Google
-      </Button>
-
-      <div className="flex items-center gap-3 text-[13px] text-encre-douce">
-        <span aria-hidden className="h-px flex-1 bg-ligne" />
-        ou avec ton e-mail
-        <span aria-hidden className="h-px flex-1 bg-ligne" />
-      </div>
-
+      <GoogleSignIn />
       <ConnexionForm />
     </AuthSplit>
   );

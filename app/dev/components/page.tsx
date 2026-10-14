@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { AnswerOption } from "@/components/ui/AnswerOption";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { Checkbox } from "@/components/ui/Checkbox";
 import { Icon, ICON_NAMES } from "@/components/ui/Icon";
 import { LeaderboardRow } from "@/components/ui/LeaderboardRow";
 import { Logo } from "@/components/ui/Logo";
@@ -148,6 +149,15 @@ function Showcase({ theme, title }: { theme: "light" | "dark"; title: string }) 
         <TextField label="E-mail" type="email" placeholder="toi@exemple.tn" />
         <TextField label="Mot de passe" type="password" hint="8 caractères minimum." />
         <TextField label="E-mail" type="email" defaultValue="yasmine@" error="Cet e-mail n'a pas l'air valide." />
+      </Section>
+
+      <Section title="Checkbox">
+        <div className="flex flex-col">
+          <Checkbox name={`exemple-${theme}`}>J&apos;ai 16 ans ou plus, ou l&apos;accord d&apos;un parent.</Checkbox>
+          <Checkbox name={`erreur-${theme}`} error="Coche cette case pour continuer.">
+            J&apos;accepte les Conditions.
+          </Checkbox>
+        </div>
       </Section>
 
       <Section title="Card">

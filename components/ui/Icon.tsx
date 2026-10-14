@@ -8,6 +8,8 @@ import {
   ChevronRight,
   Clock,
   Code,
+  Eye,
+  EyeOff,
   FlaskConical,
   Globe,
   House,
@@ -55,6 +57,8 @@ const ICONS = {
   mail: Mail,
   edit: Pencil,
   calendar: Calendar,
+  eye: Eye,
+  eyeOff: EyeOff,
 } satisfies Record<string, LucideIcon>;
 
 export type IconName = keyof typeof ICONS;

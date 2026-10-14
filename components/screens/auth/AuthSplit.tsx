@@ -7,15 +7,17 @@ type AuthSplitProps = {
   /** Content of the navy panel (desktop only), under the logo. */
   panel: ReactNode;
   /** Line under the form (« Pas encore de compte ? … »). */
-  footer: ReactNode;
+  footer?: ReactNode;
+  /** 520 px column instead of 420 (Bienvenue). */
+  wide?: boolean;
   children: ReactNode;
 };
 
 /**
- * Connexion, Inscription and Mot de passe oublié: a navy panel next to the
+ * Connexion, Inscription, Vérification and Bienvenue: a navy panel next to the
  * form on desktop (≥ 1024 px); one column with the logo on top below that.
  */
-export function AuthSplit({ panel, footer, children }: AuthSplitProps) {
+export function AuthSplit({ panel, footer, wide = false, children }: AuthSplitProps) {
   return (
     <div className="flex min-h-dvh flex-col lg:flex-row">
       <aside className="hidden bg-nuit text-sur-nuit lg:flex lg:flex-[1_1_520px] lg:flex-col lg:gap-7 lg:px-14 lg:py-10">
@@ -26,12 +28,14 @@ export function AuthSplit({ panel, footer, children }: AuthSplitProps) {
       </aside>
 
       <main className="flex flex-1 flex-col p-4 sm:px-6 lg:flex-[1_1_520px] lg:justify-center lg:px-14 lg:py-10">
-        <div className="landing-in mx-auto flex w-full max-w-105 flex-1 flex-col gap-4 lg:flex-none lg:gap-4.5">
+        <div
+          className={`landing-in mx-auto flex w-full flex-1 flex-col gap-4 lg:flex-none lg:gap-4.5 ${wide ? "max-w-130" : "max-w-105"}`}
+        >
           <Link href="/" aria-label="Qrious, accueil" className="self-start rounded-m lg:hidden">
             <Logo size={22} />
           </Link>
           {children}
-          <p className="mt-auto pt-4 text-center text-[15px] lg:mt-2 lg:pt-0 lg:text-left">{footer}</p>
+          {footer && <p className="mt-auto pt-4 text-center text-[15px] lg:mt-2 lg:pt-0 lg:text-left">{footer}</p>}
         </div>
       </main>
     </div>
