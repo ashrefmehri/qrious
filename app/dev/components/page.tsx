@@ -4,6 +4,9 @@ import { AnswerOption } from "@/components/ui/AnswerOption";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Checkbox } from "@/components/ui/Checkbox";
+import { CoachCard } from "@/components/ui/CoachCard";
+import { QCMCard } from "@/components/ui/QCMCard";
+import { XPBar } from "@/components/ui/XPBar";
 import { Icon, ICON_NAMES } from "@/components/ui/Icon";
 import { LeaderboardRow } from "@/components/ui/LeaderboardRow";
 import { Logo } from "@/components/ui/Logo";
@@ -149,6 +152,42 @@ function Showcase({ theme, title }: { theme: "light" | "dark"; title: string }) 
         <TextField label="E-mail" type="email" placeholder="toi@exemple.tn" />
         <TextField label="Mot de passe" type="password" hint="8 caractères minimum." />
         <TextField label="E-mail" type="email" defaultValue="yasmine@" error="Cet e-mail n'a pas l'air valide." />
+      </Section>
+
+      <Section title="XPBar">
+        <XPBar level={7} xp={240} xpToNext={400} />
+        <XPBar level={1} xp={0} xpToNext={100} />
+      </Section>
+
+      <Section title="CoachCard">
+        <CoachCard title="Prochaine tuile : Intégrales" tile="commence" actionLabel="Continuer" href="#">
+          Encore 6 bonnes réponses pour la rendre solide.
+        </CoachCard>
+      </Section>
+
+      <Section title="QCMCard">
+        <QCMCard
+          subject="Maths"
+          chapter="Intégrales"
+          title="Calcul d'aires sous une courbe"
+          questions={10}
+          minutes={8}
+          difficulty="moyen"
+          xp={40}
+          source="Inspiré du Bac 2024"
+          href="#"
+        />
+        <QCMCard
+          subject="Physique"
+          chapter="Ondes mécaniques"
+          title="Ondes progressives"
+          questions={10}
+          minutes={8}
+          difficulty="facile"
+          xp={30}
+          bestScore="6/10"
+          href="#"
+        />
       </Section>
 
       <Section title="Checkbox">
